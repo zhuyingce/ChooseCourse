@@ -15,7 +15,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan(basePackages = "com.wust.system.dao")
 public class ChooseCourse {
     public static void main(String[] args) {
-
         SpringApplication.run(ChooseCourse.class, args);
     }
 }
