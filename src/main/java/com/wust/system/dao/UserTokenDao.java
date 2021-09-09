@@ -24,7 +24,7 @@ public interface UserTokenDao {
      * ~Date: 2021/8/14
      */
     @Insert("insert into userToken(token,userId) values(#{token},#{userId})")
-    void insertToken(UserToken userToken);
+    void insertToken(@Param("userId") Integer userId, @Param("token") String token);
 
     /*
     * ~Description: 每次登录修改token
@@ -34,7 +34,7 @@ public interface UserTokenDao {
     * ~Date: 2021/8/14
     */
     @Update("update userToken set token = #{token} where userId = #{userId}")
-    void updateToken(UserToken userToken);
+    void updateToken(@Param("userId") Integer userId, @Param("token") String token);
 
     /*
     * ~Description: 根据userId查
@@ -55,4 +55,15 @@ public interface UserTokenDao {
     */
     @Select("select token from userToken where userId = #{userId}")
     String queryTokenByUserId(@Param("userId") Integer userId);
+
+    /*
+     * ~Description: 退出登录时删除token
+     * ~Param: [userId]
+     * ~return: [void]
+     * ~Author: zhuyingce
+     * ~Date: 2021/9/9
+     */
+    @Update("update userToken set token = null where userId = #{userId}")
+    void deleteToken(@Param("userId") Integer userId);
+
 }

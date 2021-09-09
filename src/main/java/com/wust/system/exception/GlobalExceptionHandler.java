@@ -1,6 +1,7 @@
 package com.wust.system.exception;
 
 import com.wust.system.util.Result;
+import io.jsonwebtoken.SignatureException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -44,5 +45,12 @@ public class GlobalExceptionHandler {
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         List<String> collect = constraintViolations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
         return Result.error(collect.get(0));
+    }
+
+    //token异常
+    @ExceptionHandler(value = { SignatureException.class })     //捕捉jwt产生的异常
+    public Result authorizationException(SignatureException e){
+
+        return Result.error(1008, e.getMessage());
     }
 }

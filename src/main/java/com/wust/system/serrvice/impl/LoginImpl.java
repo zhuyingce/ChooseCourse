@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /*
@@ -43,7 +45,7 @@ public class LoginImpl implements LoginService {
     private UserTokenDao userTokenDao;
 
     @Override
-    public Result login(Login request) {
+    public Result login(Login request, HttpServletResponse response) {
 
         //判断登录情况
         Integer userId = userDao.queryLogin(request);
@@ -53,7 +55,7 @@ public class LoginImpl implements LoginService {
             return Result.error("用户名或密码错误");
         }
         //成功返回token,姓名和学号
-        String token = jwtConfig.createToken(userId+"");
+        String token = jwtConfig.createToken(userId + "");
         String name = "";
         String number = "";
 
@@ -61,12 +63,12 @@ public class LoginImpl implements LoginService {
         String type = request.getType();
 
         switch (type) {
-            case "student" :
+            case "student":
                 name = studentDao.queryNameByUserId(userId);
                 number = studentDao.queryNumByUserId(userId);
                 break;
 
-            case "teacher" :
+            case "teacher":
                 name = teacherDao.queryNameByUserId(userId);
                 number = teacherDao.queryNumByUserId(userId);
                 break;
@@ -75,39 +77,37 @@ public class LoginImpl implements LoginService {
                 return Result.error("身份不明");
         }
 
-        //生成UserToken
-        UserToken userToken = this.getUserToken(token, userId);
-
         //将token存入数据库，后面用于退出登录
-        this.storeToken(userId, userToken);
+        this.storeToken(userId, token);
+        //设置cookie
+        this.setCookie(response, userId + "");
 
         //登录成功返回token,name,number
-        LinkedHashMap<String, String> response = new LinkedHashMap<>();
-        response.put("token", token);
-        response.put("name", name);
-        response.put("number", number);
+        Map<String, String> result = new HashMap<>();
+        result.put("token", token);
+        result.put("name", name);
+        result.put("number", number);
 
-        return Result.success("登录成功", response);
+        return Result.success("登录成功", result);
     }
 
-    //封装UserToken
-    private UserToken getUserToken(String token,Integer userId) {
-        //封装UserToken
-        UserToken userToken = new UserToken();
-        userToken.setToken(token);
-        userToken.setUserId(userId);
+    //设置cookie(userId)
+    private void setCookie(HttpServletResponse response, String msg) {
 
-        return userToken;
+        Cookie cookie = new Cookie("userId", msg);
+        cookie.setPath("/");
+        cookie.setMaxAge(86400);
+        response.addCookie(cookie);
     }
 
     //存储token
-    private void storeToken(Integer userId,UserToken userToken) {
+    private void storeToken(Integer userId,String token) {
         if (userTokenDao.queryIdByUserId(userId) == null) {
             //如果是第一次登录，新增一行
-            userTokenDao.insertToken(userToken);
+            userTokenDao.insertToken(userId, token);
         } else {
             //如果不是第一次登录则修改token
-            userTokenDao.updateToken(userToken);
+            userTokenDao.updateToken(userId, token);
         }
     }
 }

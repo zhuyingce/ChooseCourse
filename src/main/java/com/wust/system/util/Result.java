@@ -42,4 +42,10 @@ public class Result {
 
         return new Result(500, message, null);
     }
+
+    //自定义错误码
+    public static Result error(Integer code, String message) {
+
+        return new Result(code, message, null);
+    }
 }
