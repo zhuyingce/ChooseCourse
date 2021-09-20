@@ -1,0 +1,25 @@
+{
+  "data": [{
+    "value": "选项1",
+    "label": "汉族"
+  }, {
+    "value": "选项2",
+    "label": "蒙古族"
+  }, {
+    "value": "选项3",
+    "label": "回族"
+  }, {
+    "value": "选项4",
+    "label": "藏族"
+  }, {
+    "value": "选项5",
+    "label": "维吾尔族"
+  }],
+
+  "departments": [
+    {"id": 1,"name": "xxx"},
+    {"id": 2,"name": "xxx"}
+  ]
+}
+
+

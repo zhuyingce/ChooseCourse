@@ -1,0 +1,26 @@
+/*输入框*/
+.input{
+  height: 30px;
+  width: 200px;
+  border: none;
+  border-bottom: 1px solid black;
+  background-color: transparent;
+  vertical-align: bottom;
+  outline: none;
+  font-size: 20px;
+  line-height: 30px;
+  box-sizing: border-box;
+}
+/*input的placeholder*/
+input::placeholder{
+  font-size: 14px;
+  font-weight: lighter;
+  color: GrayText;
+  font-style: italic;
+  letter-spacing: 4px;
+}
+/*头像*/
+.img-icon {
+  height: 60px;
+  width: 60px;
+}
