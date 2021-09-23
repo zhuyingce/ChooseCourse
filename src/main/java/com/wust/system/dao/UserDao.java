@@ -55,4 +55,14 @@ public interface UserDao {
      */
     @Select("select type from user where id = #{userId}")
     String queryTypeByUserId(@Param("userId") Integer userId);
+
+    /*
+    * ~Description: 根据Id查用户名
+    * ~Param: [id]
+    * ~return: [String]
+    * ~Author: zhuyingce
+    * ~Date: '2021/9/23'
+    */
+    @Select("select username from user where id = #{id}")
+    String queryUsernameById(@Param("id") Integer id);
 }

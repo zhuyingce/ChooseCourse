@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -48,9 +49,16 @@ public class GlobalExceptionHandler {
     }
 
     //token异常
-    @ExceptionHandler(value = { SignatureException.class })     //捕捉jwt产生的异常
-    public Result authorizationException(SignatureException e){
+    @ExceptionHandler(value = {SignatureException.class})     //捕捉jwt产生的异常
+    public Result authorizationException(SignatureException e) {
 
         return Result.error(1008, e.getMessage());
+    }
+
+    //文件大小超出10MB异常
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public Result maxUploadSizeExceeded() {
+
+        return Result.error("图片大小不可超出10MB");
     }
 }

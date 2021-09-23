@@ -51,6 +51,7 @@
             localStorage.setItem("token", response.data.data.token);
             localStorage.setItem("name", response.data.data.name);
             localStorage.setItem("number", response.data.data.number);
+            localStorage.setItem("username", response.data.data.username);
 
             this.$message.success(response.data.message);
 

@@ -1,7 +1,18 @@
 <template>
   <div class="person-info">
     <div class="avatar">
-      <img src="../../../assets/avatar.png" alt="头像" class="img-icon img">
+      <img src="../../../assets/avatar.png" v-real-img="src" alt="头像" class="img-icon">
+      <el-upload
+        action="http://localhost:8081/file/headPortrait"
+        class="upload-box"
+        accept=".jpg"
+        :headers="headers"
+        :with-credentials="true"
+        :on-success="upSuccess"
+        :show-file-list="false"
+      >
+        <span class="upload">点击上传头像</span>
+      </el-upload>
     </div>
 
     <div class="info username">
@@ -62,7 +73,11 @@
     name: "PersonInfo",
     data() {
       return {
-        info: {}
+        info: {},
+        src: "http://localhost:8081/static/" + localStorage.getItem("username")
+          + ".jpg?"+new Date().getTime(),
+        file: {},
+        headers: {token: localStorage.token}
       };
     },
     methods: {
@@ -83,6 +98,18 @@
 
             this.$message.error("网络错误");
           });
+      },
+      upSuccess(response,file,fileList) {
+
+        if (response.code === 200) {
+
+          this.$message.success(response.message);
+          //刷新浏览器
+          setInterval(fun => {location.reload()}, 2000);
+        } else {
+
+          this.$message.error(response.message);
+        }
       }
     },
     created() {
@@ -92,6 +119,8 @@
 </script>
 
 <style scoped>
+  @import "../../../../static/public.css";
+
   .person-info {
     height: 89%;
     margin-left: 200px;
@@ -101,11 +130,6 @@
 
   .avatar {
     cursor: default;
-  }
-
-  .img {
-    height: 60px;
-    width: 60px;
   }
 
   .info {
@@ -122,5 +146,19 @@
   span{
     margin-left: 20px;
     letter-spacing: 2px;
+  }
+
+  .upload {
+    font-size: xx-small;
+    letter-spacing: 0;
+    color: #409EFF;
+    border-bottom: 1px solid #409EFF;
+    cursor: pointer;
+  }
+
+  .upload-box {
+    display: inline-block;
+    position: absolute;
+    transform: translate(-1em,2.5em);
   }
 </style>

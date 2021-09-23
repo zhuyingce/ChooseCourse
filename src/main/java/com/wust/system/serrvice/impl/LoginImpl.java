@@ -82,11 +82,12 @@ public class LoginImpl implements LoginService {
         //设置cookie
         this.setCookie(response, userId + "");
 
-        //登录成功返回token,name,number
+        //登录成功返回token,name,number,username
         Map<String, String> result = new HashMap<>();
         result.put("token", token);
         result.put("name", name);
         result.put("number", number);
+        result.put("username", userDao.queryUsernameById(userId));
 
         return Result.success("登录成功", result);
     }

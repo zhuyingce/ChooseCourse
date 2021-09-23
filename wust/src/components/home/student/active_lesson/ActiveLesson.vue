@@ -1,7 +1,7 @@
 <template>
   <div class="active-lesson">
     <div class="search">
-      <el-input style="width: 300px;transform: translateX(-380px)"
+      <el-input style="width: 300px;transform: translateX(-27.5em)"
                 clearable v-model="search" placeholder="课程名或任课教师"
                 @keyup.enter.native="doSearch"></el-input>
     </div>

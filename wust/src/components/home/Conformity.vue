@@ -1,7 +1,7 @@
 <template>
   <div class="conformity">
     <div class="avatar">
-      <img src="../../assets/avatar.png" alt="头像" class="img-icon">
+      <img src="../../assets/avatar.png" alt="头像" v-real-img="src" class="img-icon">
 
       <el-button size="mini" style="position: absolute;margin-left: -11.7em" @click="logout">退出登录</el-button>
 
@@ -59,6 +59,8 @@
           number: localStorage.number,
           type:this.$route.params.type
         },
+        src: "http://localhost:8081/static/" + localStorage.getItem("username")
+          + ".jpg?"+new Date().getTime(),
       };
     },
 
@@ -92,7 +94,7 @@
 
           this.$message.error("网络错误");
         });
-      }
+      },
     }
   };
 </script>
