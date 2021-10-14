@@ -86,6 +86,9 @@
               this.$router.push("/log_reg/login");
 
               localStorage.removeItem("token");
+              localStorage.removeItem("username");
+              localStorage.removeItem("name");
+              localStorage.removeItem("number");
             } else {
 
               this.$message.error(response.data.message);
