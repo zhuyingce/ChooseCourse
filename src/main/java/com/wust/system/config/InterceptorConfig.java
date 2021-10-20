@@ -25,7 +25,9 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         String[] excludePathPattern = {
                 "/user/login",
                 "/user/register",
-                "/static/**"
+                "/static/**",
+                "/dept/getAll",
+                "/major/getByDeptId"
         };
 
         registry.addInterceptor( interceptor )

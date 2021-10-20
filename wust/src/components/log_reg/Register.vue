@@ -1,9 +1,15 @@
 <template>
   <div class="reg-panel">
+    <span
+      style="color: dodgerblue;float: left;transform: translateY(-1em);cursor: pointer;"
+      @click="()=>{this.$router.push(`/`)}"
+    >
+      &lt返回
+    </span>
     <div class="register">
       <el-form :label-position="labelPosition" label-width="100px">
         <el-form-item label="用户名" class="bar">
-          <el-input v-model="userInfo.name" placeholder="请输入手机号"></el-input>
+          <el-input v-model="userInfo.username" placeholder="请输入手机号"></el-input>
         </el-form-item>
 
         <el-form-item label="密 码" class="bar">
@@ -15,7 +21,7 @@
         </el-form-item>
 
         <el-form-item label="姓 名" class="bar">
-          <el-input v-model="userInfo.email" placeholder="请输入姓名"></el-input>
+          <el-input v-model="userInfo.name" placeholder="请输入姓名"></el-input>
         </el-form-item>
 
         <el-form-item label="性 别" class="bar" style="margin-top: -20px">
@@ -64,7 +70,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="职 位" v-show="userInfo.type === `student`" class="bar">
+        <el-form-item label="班 级" v-show="userInfo.type === `student`" class="bar">
           <el-input v-model="userInfo.grade" placeholder="请输入教师职位"></el-input>
         </el-form-item>
 

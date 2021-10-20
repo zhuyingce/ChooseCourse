@@ -42,7 +42,7 @@
         我教的课
       </div>
     </div>
-    <RouterView/>
+    <router-view @update="update"></router-view>
   </div>
 </template>
 
@@ -50,21 +50,23 @@
   import axios from 'axios';
 
   export default {
-
     name: "Conformity",
     data() {
       return {
         info: {
-          name:localStorage.name,
+          name: localStorage.name,
           number: localStorage.number,
-          type:this.$route.params.type
+          type: this.$route.params.type
         },
         src: "http://localhost:8081/static/" + localStorage.getItem("username")
-          + ".jpg?"+new Date().getTime(),
+          + ".jpg?" + new Date().getTime(),
       };
     },
-
     methods: {
+      update(val) {
+        this.src = "http://localhost:8081/static/" + localStorage.getItem("username")
+          + ".jpg?" + new Date().getTime();
+      },
       getPath(value) {
 
         return this.$route.path.indexOf(value) !== -1;

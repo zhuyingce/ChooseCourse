@@ -75,7 +75,7 @@
       return {
         info: {},
         src: "http://localhost:8081/static/" + localStorage.getItem("username")
-          + ".jpg?"+new Date().getTime(),
+          + ".jpg?" + new Date().getTime(),
         file: {},
         headers: {token: localStorage.token}
       };
@@ -105,7 +105,10 @@
 
           this.$message.success(response.message);
           //刷新浏览器
-          setInterval(fun => {location.reload()}, 2000);
+          this.src = "http://localhost:8081/static/" + localStorage.getItem("username")
+            + ".jpg?" + new Date().getTime();
+
+          this.$emit(`update`, "");
         } else {
 
           this.$message.error(response.message);
