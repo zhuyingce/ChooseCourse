@@ -4,6 +4,7 @@ import com.wust.system.serrvice.StuCouService;
 import com.wust.system.util.Result;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotNull;
  * ~author: zhuyingce
  * ~create: 2021-08-19
  */
+@Validated
 @RestController
 @RequestMapping("/stu_cou")
 public class StuCouController {

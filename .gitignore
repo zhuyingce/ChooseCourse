@@ -59,3 +59,4 @@ build/
 .vscode/
 target/generated-sources/
 target/generated-test-sources/
+src/main/resources/static/
